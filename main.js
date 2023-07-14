@@ -1,35 +1,44 @@
-function getComputerChoice() {
-  let options = ["Rock", "Paper", "Scissors"];
-  let random = Math.floor(Math.random() * options.length);
-  return randomOption = options[random];
-}
+const optionsArray = ["Rock", "Paper", "Scissors"]
 
-function getPlayerSelection() {
-  let playerSelection = prompt("Choose one between Rock, Paper or Scissors: ")
-  return playerSelection
+function getComputerChoice(){
+  return optionsArray[~~(Math.random() * optionsArray.length)]
 }
 
 function playRound(playerSelection, computerSelection) {
-  if (playerSelection === computerSelection) {
-    console.log("It's a tie!")
-  } else if (playerSelection === "Paper" && computerSelection === "Scissors" || playerSelection === "Scissors" && computerSelection === "Rock" || playerSelection === "Rock" && computerSelection === "Paper") {
-    console.log("You Lose! " + computerSelection + " beats " + playerSelection + ".")
-  } else {
-    console.log("Congratulations! " + playerSelection + " beats " + computerSelection + ".")
+  let computerScore = 0
+  let playerScore = 0
+
+  for(let i = 0; i < 5; i++){
+    computerSelection = getComputerChoice().toLowerCase()
+    playerSelection = prompt("Rock, Paper or Scissors?").toLowerCase()
+
+    console.log(`Computer select: ${computerSelection}`)
+    console.log(`Player select: ${playerSelection}`)
+
+    if(computerSelection == playerSelection){
+      console.log("It's a tie!")
+    } else if(
+      (computerSelection == "rock" && playerSelection == "scissors") ||
+      (computerSelection == "scissors" && playerSelection == "paper") ||
+      (computerSelection == "paper" && playerSelection == "rock")
+    ) {
+      computerScore++
+      console.log(`You lost this round! The score is: computer ${computerScore} x player ${playerScore}`)
+    } else if(
+      (computerSelection == "rock" && playerSelection == "paper") ||
+      (computerSelection == "paper" && playerSelection == "scissors") ||
+      (computerSelection == "scissors" && playerSelection == "rock")
+    ){
+      playerScore++
+      console.log(`You won this round! The score is: computer ${computerScore} x player ${playerScore}`)
+    }
+    console.log("--------------------------")
   }
-};
-
-function game() {
-  const playerSelection = getPlayerSelection();
-  const computerSelection = getComputerChoice();
-
-  playRound(playerSelection, computerSelection );
-  playRound(playerSelection, computerSelection );
-  playRound(playerSelection, computerSelection );
-  playRound(playerSelection, computerSelection );
-  playRound(playerSelection, computerSelection );
+  if(playerScore > computerScore){
+    console.log("Congratulations on winning the game!")
+  } else if(playerScore < computerScore) {
+    console.log("Sorry for your loss, better luck next time!")
+  } else {
+    console.log("The game ended in a tie!")
+  }
 }
-
-console.log(game());
-
-
